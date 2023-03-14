@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class Tests {
-
     @Test
     @DisplayName("t1")
     void t1(){
@@ -14,7 +13,6 @@ public class Tests {
 
         assertThat(new Solution().solution(id_pw,db)).isEqualTo("login");
     }
-
     @Test
     @DisplayName("t2")
     void t2(){
@@ -23,7 +21,6 @@ public class Tests {
 
         assertThat(new Solution().solution(id_pw,db)).isEqualTo("wrong pw");
     }
-
     @Test
     @DisplayName("t3")
     void t3(){
@@ -32,6 +29,4 @@ public class Tests {
 
         assertThat(new Solution().solution(id_pw,db)).isEqualTo("fail");
     }
-
-
 }
