@@ -7,7 +7,6 @@ public class Main {
 }
 
 class Solution {
-
     public int solution(int slice, int n) {
         int result = 1;
 
