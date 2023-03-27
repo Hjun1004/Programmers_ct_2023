@@ -17,7 +17,7 @@ public class Tests {
     @Test
     @DisplayName("[0, 31, 24, 10, 1, 9] -> 744")
     void t2(){
-        assertThat(new Solution().solution(new int[]{0, 31, 24, 10, 1, 9})).isEqualTo(744);
+        assertThat(new Solution().solution(new int[]{0, 31, 24, 10, 1, 9})).isEqualTo("Cdbe");
     }
 
 
