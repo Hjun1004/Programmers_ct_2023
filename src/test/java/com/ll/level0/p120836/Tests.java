@@ -19,6 +19,4 @@ public class Tests {
         assertThat(new Solution().solution(100)).isEqualTo(9);
     }
 
-
-
 }
