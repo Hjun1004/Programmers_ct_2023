@@ -7,6 +7,5 @@ public class Solution {
             return true;
         }
         else return false;
-        //return answer;
     }
 }
