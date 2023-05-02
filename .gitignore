@@ -118,6 +118,10 @@ fabric.properties
 # Compiled class file
 *.class
 
+#Custom
+#아직 덜품
+src/main/java/com/ll/level0/p181871
+
 # Log file
 *.log
 
