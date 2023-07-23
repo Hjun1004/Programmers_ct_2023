@@ -121,6 +121,9 @@ fabric.properties
 #Custom
 #아직 덜품
 src/main/java/com/ll/level0/p181871
+src/main/java/com/ll/level1/p134240/
+src/test/java/com/ll/level1/p134240/
+
 
 # Log file
 *.log
