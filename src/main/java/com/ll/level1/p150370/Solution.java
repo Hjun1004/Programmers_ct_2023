@@ -1,12 +1,12 @@
 package com.ll.level1.p150370;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Solution {
     public int[] solution(String today, String[] terms, String[] privacies) {
-        int[] answer = {};
-
+        List<Integer> answer = new ArrayList<>();
 
         int[] month = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
 
@@ -27,23 +27,88 @@ public class Solution {
 
         List<ExpirationDate> expirationDateList = new ArrayList<>();
 
-        for(String term : terms){
-            String[] termSplit = term.split(" ");
 
-            expirationDateList.add(new ExpirationDate(termSplit[0], Integer.parseInt(termSplit[1])));
-        }
+        for(int i = 0 ; i < privacies.length ; i++){
+            String[] privacy = privacies[i].split(" ");
 
+            String[] firstPrivacy = privacy[0].split("\\.");
 
+            int[] ch = new int[firstPrivacy.length];
 
-        for(ExpirationDate expirationDate : expirationDateList){
-            if(expirationDate.getType().equals("A")){
-                System.out.println(expirationDate.getType());
+            for(int j = 0 ; j < firstPrivacy.length ; j++){
+                ch[j] = Integer.parseInt(firstPrivacy[j]);
             }
+
+            System.out.println(Arrays.toString(ch));
+
+            for(String term : terms){
+                String[] termSplit = term.split(" ");
+
+                expirationDateList.add(new ExpirationDate(termSplit[0], Integer.parseInt(termSplit[1])));
+            }
+
+            ExpirationDate expiration = null;
+
+            for(ExpirationDate expirationDate : expirationDateList){
+                if(expirationDate.getType().equals(privacy[1])){
+                    expiration = expirationDate;
+                }
+            }
+
+            System.out.println(expiration.getType());
+
+            int index = ch[1]-1; // ex) ch[1]이 5라면 index는 4가 된다. month[4] 는 5이다.
+
+            for(int c = expiration.getHowLong() ; c > 0 ; c--){
+                index++;
+                if(index >= 12){
+                    index = 0;
+                    ch[0]++;
+                }
+            }
+
+            ch[1] = month[index];
+
+            if(ch[2] == 1){
+                if(ch[1] == 1){
+                    ch[0]-=1;
+                    ch[1] = 12;
+                    ch[2] = 28;
+                }
+                else{
+                    ch[1]-=1;
+                    ch[2] = 28;
+                }
+            }
+            else{
+                ch[2] -= 1;
+            }
+
+            System.out.println(Arrays.toString(ch));
+            System.out.println();
+
+            if(dateNum[0] > ch[0]){
+                answer.add(i+1);
+                System.out.println(i+1);
+            }
+            else if(dateNum[0] == ch[0]){
+                if(dateNum[1] > ch[1]){
+                    answer.add(i+1);
+                    System.out.println(i+1);
+                }
+                else if(dateNum[1] == ch[1]){
+                    if(dateNum[2] > ch[2]){
+                        answer.add(i+1);
+                        System.out.println(i+1);
+                    }
+                }
+            }
+
         }
 
 
 
-        return answer;
+        return answer.stream().mapToInt(e ->e).toArray();
     }
 }
 
