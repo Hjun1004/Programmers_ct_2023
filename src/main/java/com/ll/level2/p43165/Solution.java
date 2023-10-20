@@ -5,60 +5,46 @@ public class Solution {
     public int solution(int[] numbers, int target) {
         int answer = 0;
 
-        final int numbersLength = numbers.length;
 
-        boolean[] visited = new boolean[numbersLength];
+        answer += dfs(numbers[0], 1, numbers, target);
 
-
-
-        answer += dfs(numbers[0], 0,  visited, numbers, target);
-        answer += dfs(numbers[0] * -1, 0,  visited, numbers, target);
-
-        System.out.println(answer);
+        answer += dfs(numbers[0] * -1, 1, numbers, target);
 
         return answer;
     }
 
-    int dfs(int curtData, int curIndex, boolean[] visited, int[] numbers, int target){
+    int dfs(int curtData, int curIndex, int[] numbers, int target){
+        System.out.println(curIndex);
 
         if(curIndex >= numbers.length){
+            System.out.println("check");
             if(curtData == target){
+                System.out.println("success");
                 return 1;
             }
             return 0;
         }
 
 
-//        if(visited[numbers.length -1]){
-//            if(curtData == target){
-//                return 1;
-//            }
-//
-//            return 0;
-//        }
-
-//        visited[curIndex] = true;
-
-
-
-
-        curIndex++;
 
         int routePlus = 0;
         int routeMinus = 0;
 
-        if(curIndex < numbers.length){
-            routePlus = curtData + numbers[curIndex];
-            routeMinus = curtData - numbers[curIndex];
-        }
+        routePlus = curtData + numbers[curIndex];
+        routeMinus = curtData - numbers[curIndex];
 
-        System.out.println(routePlus);
-        System.out.println(routeMinus);
+
+        curIndex++;
 
         int ans = 0;
 
-        ans += dfs(routePlus, curIndex, visited, numbers, target);
-        ans += dfs(routeMinus, curIndex, visited, numbers, target);
+        ans += dfs(routePlus, curIndex, numbers, target);
+
+        ans += dfs(routeMinus, curIndex, numbers, target);
+
+//        System.out.println(ans);
+
+
 
         return ans;
     }
