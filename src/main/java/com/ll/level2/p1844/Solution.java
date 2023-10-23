@@ -4,12 +4,11 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class Solution {
-//    int d[][] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
 
     int dx[] = {1, -1, 0, 0};
     int dy[] = {0, 0, 1, -1};
 
-    int depth = Integer.MIN_VALUE;
+    int depth = 0;
 
     int endCheck = 0;
 
@@ -21,21 +20,24 @@ public class Solution {
         return depth;
     }
 
+
     void bfs(int[][] maps) {
 
         int n = maps.length;
         int m = maps[0].length;
 
+        if(maps[n-1][m-2] == 0 && maps[n-2][m-1]==0){
+            depth = -1;
+        }
+
         Queue<Point> q = new LinkedList<>();
 
         boolean visited[][] = new boolean[n][m];
 
-        Point startPoint = new Point();
+//        Point startPoint = new Point(0, 0);
+//        startPoint.cost = 0;
 
-        startPoint.setX(0);
-        startPoint.setY(0);
-
-        q.add(startPoint);
+        q.add(new Point(0,0,0));
 
         visited[0][0] = true;
 
@@ -45,13 +47,15 @@ public class Solution {
 
             int x = nowPoint.x;
             int y = nowPoint.y;
+            int nowCost = nowPoint.cost+1;
 
-            System.out.println("[" + x + "]" + " [" + y + "]" );
+//            System.out.println("[" + x + "]" + " [" + y + "]" );
 
             if(x == n-1 && y == m-1){
                 q.clear();
-                endCheck = 1;
-                continue;
+                depth = nowCost;
+//                endCheck = 1;
+                break;
             }
 
             visited[x][y] = true;
@@ -60,24 +64,26 @@ public class Solution {
                 int newX = x + dx[i];
                 int newY = y + dy[i];
 
-                if(newX > -1 && newY > -1 && newY < maps[0].length && newY < maps.length){
+                if(newX > -1 && newY > -1 && newY < m && newY < n){
                     if(maps[newX][newY] == 1 && !visited[newX][newY]){
-                        Point nextPoint = new Point(newX, newY);
-                        q.add(nextPoint);
+//                        Point nextPoint = new Point(newX, newY, nowCost);
+                        q.add(new Point(newX, newY, nowCost));
                     }
                 }
 
             }
         }
 
-        if(endCheck != 1){
-            depth = -1;
-        }
+//        if(endCheck != 1){
+//            depth = -1;
+//        }
     }
 
     class Point{
         int x;
         int y;
+
+        int cost;
 
         public Point(){
             ;
@@ -88,14 +94,15 @@ public class Solution {
             this.y = y;
         }
 
-        public void setX(int x) {
+        public Point(int x, int y, int cost) {
             this.x = x;
+            this.y = y;
+            this.cost = cost;
         }
 
-        public void setY(int y) {
-            this.y = y;
-        }
     }
 
 
 }
+
+
