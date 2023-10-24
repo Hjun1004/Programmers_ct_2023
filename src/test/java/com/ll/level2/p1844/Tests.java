@@ -19,4 +19,18 @@ public class Tests {
                 new Solution().solution(new int[][] {{1, 0, 1, 1, 1}, {1, 0, 1, 0, 1}, {1, 0, 1, 1, 1}, {1, 1, 1, 0, 0}, {0, 0, 0, 0, 1}})
         ).isEqualTo(-1);
     }
+
+    @Test
+    void t3(){
+        assertThat(
+                new Solution().solution(new int[][] {{1, 0, 1, 1}, {1, 1, 1, 1}, {0, 0, 0, 1}})
+        ).isEqualTo(6);
+    }
+
+    @Test
+    void t5(){
+        assertThat(
+                new Solution().solution(new int[][] {{1}})
+        ).isEqualTo(1);
+    }
 }
