@@ -7,6 +7,7 @@ public class Solution {
         for(int i = 1 ; i < arr.length ; i++){
             answer = lcm(answer, arr[i]);
         }
+
         return answer;
     }
 
@@ -19,4 +20,5 @@ public class Solution {
 
         return gcd(b, a%b);
     }
+
 }
