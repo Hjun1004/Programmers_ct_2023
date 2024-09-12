@@ -1,5 +1,7 @@
 package com.ll.level4.p42891;
 
+import java.util.*;
+
 public class Solution {
     class Food{
         int index;
@@ -9,57 +11,56 @@ public class Solution {
             this.index = index;
             this.time = time;
         }
+
+
     };
 
     public int solution(int[] food_times, long k) {
         int answer = 0;
+        int foodLength = food_times.length;
 
+        List<Food> foodList = new ArrayList<>();
 
-
-
-
-
-
-
-
-
-
-        /*
-        int lenth = food_times.length;
-        int index = 0;
-
-        Queue<Food> foodQueue = new LinkedList<>();
-
-
-        for(int i = 0 ; i < lenth ; i++){
-            foodQueue.add(new Food(i+1 , food_times[i]));
+        for(int i = 0 ; i < foodLength ; i++){
+            foodList.add(new Food(i+1, food_times[i]));
         }
 
-        int queeuLenth = foodQueue.size();
+        Collections.sort(foodList, (a,b) -> a.time - b.time);
 
-        Food lastFood = null;
+//        for(int i = 0 ; i < foodList.size() ; i++){
+//            System.out.println(foodList.get(i).time);
+//        }
 
-        while(k>=0) {
-            Food food = foodQueue.poll();
+        int idx = 0;
+        int currentTime = 0;
 
-            if(food.time!=0){
-                food.time--;
-                k--;
-                foodQueue.add(food);
+        for(Food f : foodList){
+            long diff = f.time - currentTime;
+
+            if(diff != 0){
+                long spend = diff * foodLength;
+
+                if(spend <= k){
+                    k-=spend;
+                    currentTime = f.time;
+                }
+                else{
+                    k%=foodLength;
+                    List<Food> remainFoodList = new ArrayList<>(foodList.subList(idx, food_times.length));
+                    Collections.sort(remainFoodList, (a,b) -> a.index - b.index);
+
+                    for(int i = 0 ; i < remainFoodList.size(); i++){
+                        System.out.println(remainFoodList.get(i).index);
+                    }
+
+                    return remainFoodList.get((int)k).index;
+                }
             }
-            else if(food.time == 0){
-                foodQueue.add(food);
-            }
+            foodLength--;
+            idx++;
+        }
 
-            if(k== -1L){
-                lastFood = food;
-            }
-
-        }*/
-
-
-
-        return 1;
+        return -1;
     }
 }
 
